@@ -1,0 +1,47 @@
+{
+  "name": "react-multi-lang",
+  "version": "0.0.1",
+  "description": "React Multilanguage Higher-Order Component",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "flow": "flow",
+    "prepublish": "npm run babel-prepublish && npm run flow-prepublish",
+    "babel-prepublish": "babel src/ -d lib",
+    "flow-prepublish": "flow-copy-source src lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JWebCoder/react-multi-lang.git"
+  },
+  "keywords": [
+    "react",
+    "translations",
+    "translation",
+    "i18n"
+  ],
+  "bugs": {
+    "url": "https://github.com/JWebCoder/react-multi-lang/issues"
+  },
+  "author": "João Moura <joao87moura@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.11.0",
+    "eslint-config-standard-flow": "^1.0.1",
+    "eslint-plugin-react": "^7.4.0",
+    "flow-bin": "^0.59.0",
+    "flow-copy-source": "^1.2.1"
+  },
+  "dependencies": {
+    "react-native-uuid": "^1.4.9"
+  }
+}
