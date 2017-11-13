@@ -3,6 +3,9 @@
 import * as React from 'react'
 import uuid from 'react-native-uuid'
 
+// statics handler
+import hoistStatics from 'hoist-non-react-statics'
+
 let language: string = 'pt'
 let subscribes: {
   cb: () => mixed,
@@ -52,7 +55,7 @@ export function setLanguage (lang: string) {
 }
 
 export function translate (Component: React$ComponentType<*>):React$ComponentType<*> {
-  return class extends React.Component<{}, *> {
+  class TranslatedComponet extends React.Component<{}, *> {
     id: string
 
     componentDidMount () {
@@ -71,6 +74,8 @@ export function translate (Component: React$ComponentType<*>):React$ComponentTyp
       )
     }
   }
+
+  return hoistStatics(TranslatedComponet, Component)
 }
 
 export default {
