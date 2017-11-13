@@ -11,8 +11,8 @@ import en from './translations/en.json'
 // Translated Component
 import TranslatedComponent from './component'
 
-setDefaultLanguage('en')
 setTranslations({pt, en})
+setDefaultLanguage('en')
 
 ReactDOM.render(
   <TranslatedComponent/>,
