@@ -4,19 +4,21 @@ import * as React from 'react'
 
 // Translation Higher Order Component
 import { translate } from 'react-multi-lang'
+import type { T } from 'react-multi-lang'
 
 type Props = {
-  translate:(string) => string
+  t: T
 }
 
 type State = {}
 
 class SomeComponent extends React.Component<Props, State> {
   render () {
-    const { translate } = this.props
+    const { t } = this.props
     return (
       <div>
-        {translate('About Us')}
+        {t('About Us')}
+        {t('Hello', {name: 'João'})}
       </div>
     )
   }

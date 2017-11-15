@@ -18,19 +18,9 @@ export type Translations = {
   }
 }
 
+export type T = (key: string, args?: {[string]: string}) => string
+
 let translations: Translations = {}
-
-export function setDefaultLanguage (lang: string): void {
-  language = lang
-}
-
-export function setTranslations (userTranslations: Translations): void {
-  translations = userTranslations
-}
-
-export function getText (key: string): string {
-  return translations[language][key]
-}
 
 export function subscribe (cb:() => mixed, id?: string): string {
   const newId = id || uuid.v1()
@@ -47,11 +37,44 @@ export function unsubscribe (id: string) {
   )
 }
 
-export function setLanguage (lang: string) {
-  language = lang
+function triggerSubscriptions (): void {
   subscribes.forEach(
     item => item.cb()
   )
+}
+
+export function setDefaultLanguage (lang: string): void {
+  language = lang
+}
+
+export function setDefaultTranslations (userTranslations: Translations): void {
+  if (Object.keys(translations).length !== 0) {
+    setTranslations(userTranslations)
+    return
+  }
+  translations = userTranslations
+}
+
+export function setTranslations (userTranslations: Translations): void {
+  translations = userTranslations
+  triggerSubscriptions()
+}
+
+export function setLanguage (lang: string) {
+  language = lang
+  triggerSubscriptions()
+}
+
+export function t (key: string, args?: {[string]: string}): string {
+  let translation = translations[language][key]
+  if (args) {
+    Object.keys(args).forEach(
+      key => {
+        translation = translation.replace(`{${key}}`, args[key])
+      }
+    )
+  }
+  return translation
 }
 
 export function translate (Component: React$ComponentType<*>):React$ComponentType<*> {
@@ -70,7 +93,7 @@ export function translate (Component: React$ComponentType<*>):React$ComponentTyp
 
     render () {
       return (
-        <Component {...this.props} translate={(key: string) => getText(key)}/>
+        <Component {...this.props} t={(key: string, args?:{[string]: string}) => t(key, args)}/>
       )
     }
   }
@@ -79,10 +102,12 @@ export function translate (Component: React$ComponentType<*>):React$ComponentTyp
 }
 
 export default {
+  setDefaultLanguage,
   setLanguage,
+  setDefaultTranslations,
+  setTranslations,
   translate,
   subscribe,
   unsubscribe,
-  getText,
-  setTranslations
+  t
 }

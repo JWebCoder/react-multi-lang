@@ -48,16 +48,29 @@ export default translate(SomeComponent)
 
 ## Injected Method
 
-#### translate(key)
+If using the Higher Order Component `translate(SomeComponent)`
+
+#### t(key, params)
 
 | Params        | Type          | Description  |
 | ------------- |:-------------:| ------------ |
-| key   | string        | translation key that identifies the text |
+| key           | string        | translation key that identifies the text |
+| params        | object        | {'param': 'value', ...} each param will be set on the string in its correct location |
 
 
-## Methods
+## Exported Methods
+
+#### setDefaultTranslations(translations)
+
+Sets the translations
+
+| Params        | Type          | Description  |
+| ------------- |:-------------:| ------------ |
+| translations   | object        | {'key': 'translations', ...} |
 
 #### setTranslations(translations)
+
+Same as setDefaultTranslations, but this will update all components using translations
 
 | Params        | Type          | Description  |
 | ------------- |:-------------:| ------------ |
@@ -65,6 +78,25 @@ export default translate(SomeComponent)
 
 #### setDefaultLanguage(key)
 
+Sets the default application language
+
 | Params        | Type          | Description  |
 | ------------- |:-------------:| ------------ |
 | key   | string        | translation key, in this example 'en' or 'pt' |
+
+#### setLanguage(key)
+
+Same as setDefaultLanguage, but this will update all components using translations
+
+| Params        | Type          | Description  |
+| ------------- |:-------------:| ------------ |
+| key   | string        | translation key, in this example 'en' or 'pt' |
+
+#### t(key, params)
+
+Get text function, will return the translated string
+
+| Params        | Type          | Description  |
+| ------------- |:-------------:| ------------ |
+| key           | string        | translation key that identifies the text |
+| params        | object        | {'param': 'value', ...} each param will be set on the string in its correct location |
