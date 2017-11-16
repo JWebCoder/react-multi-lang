@@ -7,11 +7,11 @@ import uuid from 'react-native-uuid'
 import hoistStatics from 'hoist-non-react-statics'
 
 let language: string = 'pt'
+
 let subscribes: {
   cb: () => mixed,
   id: string
 }[] = []
-
 export type Translations = {
   [string]: {
     [string]: string
@@ -31,7 +31,7 @@ export function subscribe (cb:() => mixed, id?: string): string {
   return newId
 }
 
-export function unsubscribe (id: string) {
+export function unsubscribe (id: string): void {
   subscribes = subscribes.filter(
     item => item.id !== id
   )
@@ -77,7 +77,7 @@ export function t (key: string, args?: {[string]: string}): string {
   return translation
 }
 
-export function translate (Component: React$ComponentType<*>):React$ComponentType<*> {
+export function translate (Component: React$ComponentType<*>): React$ComponentType<*> {
   class TranslatedComponet extends React.Component<{}, *> {
     id: string
 
@@ -93,7 +93,7 @@ export function translate (Component: React$ComponentType<*>):React$ComponentTyp
 
     render () {
       return (
-        <Component {...this.props} t={(key: string, args?:{[string]: string}) => t(key, args)}/>
+        <Component {...this.props} t={(key: string, args?:{[string]: string}): string => t(key, args)}/>
       )
     }
   }
