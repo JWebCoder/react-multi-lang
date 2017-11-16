@@ -21,13 +21,14 @@ import * as React from 'react'
 import { setTranslations, setDefaultLanguage, translate } from 'react-multi-lang'
 import pt from '.pt.json'
 import en from '.en.json'
+import type { T } from 'react-multi-lang'
 
 // Do this two lines only when setting up the application
 setTranslations({pt, en})
 setDefaultLanguage('en')
 
 type Props = {
-  translate:(string) => string
+  t: T
 }
 
 type State = {}
@@ -37,7 +38,7 @@ class SomeComponent extends React.Component<Props, State> {
     const { translate } = this.props
     return (
       <div>
-        {translate('About Us')}
+        {t('Hello', {name: 'João'})}
       </div>
     )
   }
