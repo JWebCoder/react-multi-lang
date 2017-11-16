@@ -1,4 +1,4 @@
-# react-native-swipe-container
+# react-multi-lang
 
 React Multilanguage Higher Order Component.
 
