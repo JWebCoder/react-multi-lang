@@ -15,13 +15,15 @@ type Subscription = {
 
 let subscribes: Subscription[] = []
 
-export type Translations = {
-  [string]: {
-    [string]: string
-  }
+type Translation = {
+  [string]: string | Translation
 }
 
-export type T = (key: string, args?: {[string]: string}) => string
+export type Translations = {
+  [string]: Translation
+}
+
+export type T = (path: string, args?: {[string]: string}) => string
 
 let translations: Translations = {}
 
@@ -70,15 +72,30 @@ export function setLanguage (lang: string) {
   triggerSubscriptions()
 }
 
-export function t (key: string, args?: {[string]: string}): string {
-  let translation = translations[language][key]
-  if (args) {
-    Object.keys(args).forEach(
-      key => {
-        translation = translation.replace(`{${key}}`, args ? args[key]: '')
+export function t (path: string, args?: {[string]: string}): string {
+  const translationKeys: string[] = path.split('.')
+  let translation: string = ''
+  let translationObj: Translation = translations[language]
+
+  translationKeys.forEach(
+    (key: string) => {
+      const temp: string | Translation = translationObj[key]
+      if (typeof temp === 'string') {
+        translation = temp
       }
-    )
+    }
+  )
+
+  if (translation) {
+    if (args) {
+      Object.keys(args).forEach(
+        key => {
+          translation = translation.replace(`{${key}}`, args ? args[key]: '')
+        }
+      )
+    }
   }
+
   return translation
 }
 

@@ -4,5 +4,8 @@
   "Operacional Forecast": "Previsão operacional",
   "About Us": "Sobre Nós",
   "Share": "Pratilhar",
-  "Hello": "Ola {name}"
+  "Hello": "Ola {name}",
+  "home": {
+    "Title": "Tradução nivel 2"
+  }
 }

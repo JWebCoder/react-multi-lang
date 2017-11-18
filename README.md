@@ -38,6 +38,7 @@ class SomeComponent extends React.Component<Props, State> {
     const { translate } = this.props
     return (
       <div>
+        {t('home.Title')}
         {t('Hello', {name: 'João'})}
       </div>
     )
@@ -51,53 +52,52 @@ export default translate(SomeComponent)
 
 If using the Higher Order Component `translate(SomeComponent)`
 
-#### t(key, params)
+### t(path, params)
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| key           | string        | translation key that identifies the text |
-| params        | object        | {'param': 'value', ...} each param will be set on the string in its correct location |
-
+Params | Type   | Description
+------ | ------ | ------------------------------------------------------------------------------------
+path   | string | translation path that identifies the text
+params | object | {'param': 'value', ...} each param will be set on the string in its correct location
 
 ## Exported Methods
 
-#### setDefaultTranslations(translations)
+### setDefaultTranslations(translations)
 
 Sets the translations
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| translations   | object        | {'key': 'translations', ...} |
+Params       | Type   | Description
+------------ | ------ | ----------------------------
+translations | object | {'key': 'translations', ...}
 
-#### setTranslations(translations)
+### setTranslations(translations)
 
 Same as setDefaultTranslations, but this will update all components using translations
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| translations   | object        | {'key': 'translations', ...} |
+Params       | Type   | Description
+------------ | ------ | ----------------------------
+translations | object | {'key': 'translations', ...}
 
-#### setDefaultLanguage(key)
+### setDefaultLanguage(key)
 
 Sets the default application language
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| key   | string        | translation key, in this example 'en' or 'pt' |
+Params | Type   | Description
+------ | ------ | ---------------------------------------------
+key    | string | translation key, in this example 'en' or 'pt'
 
-#### setLanguage(key)
+### setLanguage(key)
 
 Same as setDefaultLanguage, but this will update all components using translations
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| key   | string        | translation key, in this example 'en' or 'pt' |
+Params | Type   | Description
+------ | ------ | ---------------------------------------------
+key    | string | translation key, in this example 'en' or 'pt'
 
-#### t(key, params)
+### t(key, params)
 
 Get text function, will return the translated string
 
-| Params        | Type          | Description  |
-| ------------- |:-------------:| ------------ |
-| key           | string        | translation key that identifies the text |
-| params        | object        | {'param': 'value', ...} each param will be set on the string in its correct location |
+Params | Type   | Description
+------ | ------ | ------------------------------------------------------------------------------------
+key    | string | translation key that identifies the text
+params | object | {'param': 'value', ...} each param will be set on the string in its correct location

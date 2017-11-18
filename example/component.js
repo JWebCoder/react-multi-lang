@@ -19,6 +19,7 @@ class SomeComponent extends React.Component<Props, State> {
       <div>
         {t('About Us')}
         {t('Hello', {name: 'João'})}
+        {t('home.Title')}
       </div>
     )
   }
