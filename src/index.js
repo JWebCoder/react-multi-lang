@@ -9,7 +9,7 @@ import hoistStatics from 'hoist-non-react-statics'
 let language: string = 'pt'
 
 type Subscription = {
-  promise: Promise<any>,
+  cb: () => mixed,
   id: string
 }
 
@@ -27,10 +27,10 @@ export type T = (path: string, args?: {[string]: string}) => string
 
 let translations: Translations = {}
 
-export function subscribe (promise: Promise<any>, id?: string): string {
+export function subscribe (cb: () => mixed, id?: string): string {
   const newId = id || uuid.v1()
   subscribes.push({
-    promise: promise,
+    cb,
     id: newId
   })
   return newId
@@ -45,7 +45,12 @@ export function unsubscribe (id: string): void {
 function triggerSubscriptions () {
   subscribes.forEach(
     (item: Subscription) => {
-      item.promise.then()
+      new Promise(
+        (resolve, reject) => {
+          item.cb()
+          resolve()
+        }
+      ).then()
     }
   )
 }
@@ -80,6 +85,9 @@ export function t (path: string, args?: {[string]: string}): string {
   translationKeys.forEach(
     (key: string) => {
       const temp: string | Translation = translationObj[key]
+      if (typeof translationObj[key] === 'object') {
+        translationObj = translationObj[key]
+      }
       if (typeof temp === 'string') {
         translation = temp
       }
@@ -104,13 +112,7 @@ export function translate (Component: React$ComponentType<*>): React$ComponentTy
     id: string
 
     componentDidMount () {
-      this.id = subscribe(
-        new Promise(
-          (resolve, reject) => {
-            this.forceUpdate()
-          }
-        )
-      )
+      this.id = subscribe(() => this.forceUpdate())
     }
 
     componentWillUnmount () {
