@@ -1,6 +1,6 @@
 {
   "name": "react-multi-lang",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Multilanguage Higher-Order Component",
   "main": "lib/index.js",
   "files": [
@@ -42,7 +42,6 @@
     "flow-copy-source": "^1.2.1"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^2.3.1",
-    "react-native-uuid": "^1.4.9"
+    "hoist-non-react-statics": "^2.3.1"
   }
 }

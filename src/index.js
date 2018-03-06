@@ -1,19 +1,18 @@
 // @flow
 
 import * as React from 'react'
-import uuid from 'react-native-uuid'
 
 // statics handler
 import hoistStatics from 'hoist-non-react-statics'
 
 let language: string = 'pt'
+let id: number = 0
 
-type Subscription = {
-  cb: () => mixed,
-  id: string
-}
+type Subscription = (() => mixed)
 
-let subscribes: Subscription[] = []
+let subscribes: {
+  [key: number | string]: Subscription
+} = {}
 
 type Translation = {
   [string]: string | Translation
@@ -27,27 +26,23 @@ export type T = (path: string, args?: {[string]: string}) => string
 
 let translations: Translations = {}
 
-export function subscribe (cb: () => mixed, id?: string): string {
-  const newId = id || uuid.v1()
-  subscribes.push({
-    cb,
-    id: newId
-  })
+export function subscribe (cb: () => mixed): number {
+  const newId = id
+  subscribes[newId] = cb
+  id += 1
   return newId
 }
 
-export function unsubscribe (id: string): void {
-  subscribes = subscribes.filter(
-    (item: Subscription) => item.id !== id
-  )
+export function unsubscribe (id: number): void {
+  delete subscribes[id]
 }
 
 function triggerSubscriptions () {
-  subscribes.forEach(
-    (item: Subscription) => {
+  Object.keys(subscribes).forEach(
+    (id: string) => {
       new Promise(
         (resolve, reject) => {
-          item.cb()
+          subscribes[id]()
           resolve()
         }
       ).then()
@@ -109,7 +104,7 @@ export function t (path: string, args?: {[string]: string}): string {
 
 export function translate (Component: React$ComponentType<*>): React$ComponentType<*> {
   class TranslatedComponet extends React.Component<{}, *> {
-    id: string
+    id: number
 
     componentDidMount () {
       this.id = subscribe(() => this.forceUpdate())
