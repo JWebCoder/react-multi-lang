@@ -19,8 +19,8 @@ import * as React from 'react'
 
 // Translation Higher Order Component
 import { setTranslations, setDefaultLanguage, translate } from 'react-multi-lang'
-import pt from '.pt.json'
-import en from '.en.json'
+import pt from 'pt.json'
+import en from 'en.json'
 import type { T } from 'react-multi-lang'
 
 // Do this two lines only when setting up the application
