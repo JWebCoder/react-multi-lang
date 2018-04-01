@@ -1,4 +1,4 @@
-# react-multi-lang
+# react-switch-lang
 
 React Multilanguage Higher Order Component.
 
@@ -6,46 +6,43 @@ Works with React and React Native
 
 ## Installation
 
-`npm i -S react-multi-lang`
+`npm install react-switch-lang --save`
 
 ## Usage
 
 See the example folder for better understanding
 
 ```javascript
-// @flow
-
-import * as React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Translation Higher Order Component
-import { setTranslations, setDefaultLanguage, translate } from 'react-multi-lang'
-import pt from 'pt.json'
-import en from 'en.json'
-import type { T } from 'react-multi-lang'
+import { setTranslations, setDefaultLanguage, translate } from 'react-switch-lang';
+import en from 'en.json';
+import th from 'th.json';
 
 // Do this two lines only when setting up the application
-setTranslations({pt, en})
-setDefaultLanguage('en')
+setTranslations({ en, th });
+setDefaultLanguage('en');
 
-type Props = {
-  t: T
-}
-
-type State = {}
-
-class SomeComponent extends React.Component<Props, State> {
-  render () {
-    const { translate } = this.props
+class SomeComponent extends React.Component {
+  render() {
+    const { t } = this.props;
     return (
       <div>
         {t('home.Title')}
-        {t('Hello', {name: 'João'})}
+        {t('Hello', { name: 'World' })}
       </div>
     )
   }
 }
 
-export default translate(SomeComponent)
+SomeComponent.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+export default translate(SomeComponent);
+
 ```
 
 ## Injected Method

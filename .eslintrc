@@ -1,8 +1,3 @@
 {
-  "parser": "babel-eslint",
-  "plugins": ["react"],
-  "extends": ["standard-flow"],
-  "rules": {
-    "react/jsx-uses-vars": 1
-  }
+  "extends": ["airbnb-base"]
 }
