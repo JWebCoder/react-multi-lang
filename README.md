@@ -1,6 +1,6 @@
 # react-switch-lang
 
-React Multilanguage Higher Order Component.
+React Multi language Higher Order Component.
 
 Works with React and React Native
 
@@ -9,8 +9,6 @@ Works with React and React Native
 `npm install react-switch-lang --save`
 
 ## Usage
-
-See the example folder for better understanding
 
 ```javascript
 import React from 'react';
@@ -80,7 +78,7 @@ Sets the default application language
 
 Params | Type   | Description
 ------ | ------ | ---------------------------------------------
-key    | string | translation key, in this example 'en' or 'pt'
+key    | string | translation key, in this example 'en' or 'th'
 
 ### setLanguage(key)
 
@@ -88,7 +86,7 @@ Same as setDefaultLanguage, but this will update all components using translatio
 
 Params | Type   | Description
 ------ | ------ | ---------------------------------------------
-key    | string | translation key, in this example 'en' or 'pt'
+key    | string | translation key, in this example 'en' or 'th'
 
 ### t(key, params)
 
