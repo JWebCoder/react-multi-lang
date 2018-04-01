@@ -2,10 +2,7 @@
   "name": "react-switch-lang",
   "version": "0.3.4",
   "description": "React Multilanguage Higher-Order Component",
-  "main": "src/index.js",
-  "files": [
-    "src"
-  ],
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:narinrit/react-switch-lang.git"
