@@ -1,8 +1,6 @@
 # react-switch-lang
 
-React Multi language Higher Order Component.
-
-Works with React and React Native
+React Multi language Higher Order Component with cookie support.
 
 ## Installation
 
@@ -15,7 +13,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Translation Higher Order Component
-import { setTranslations, setDefaultLanguage, translate } from 'react-switch-lang';
+import { setTranslations, setDefaultLanguage, setLanguageCookie, translate } from 'react-switch-lang';
 import en from 'en.json';
 import th from 'th.json';
 
@@ -23,13 +21,24 @@ import th from 'th.json';
 setTranslations({ en, th });
 setDefaultLanguage('en');
 
+// If you want to remember selected language
+setLanguageCookie('language');
+
 class SomeComponent extends React.Component {
+  handleSetLanguage = (key) => () => {
+    setLanguage(key);
+  };
+
   render() {
     const { t } = this.props;
     return (
       <div>
         {t('home.Title')}
         {t('Hello', { name: 'World' })}
+
+        <button onClick={this.handleSetLanguage('th')}>
+          Switch language
+        </button>
       </div>
     )
   }
@@ -87,6 +96,16 @@ Same as setDefaultLanguage, but this will update all components using translatio
 Params | Type   | Description
 ------ | ------ | ---------------------------------------------
 key    | string | translation key, in this example 'en' or 'th'
+
+### setLanguageCookie(name, option, reqCookie)
+
+Sets the language cookie name, will setLanguage form this cookie and store language key back to cookie when call setLanguage
+
+Params | Type   | Default | Description
+------ | ------ | ------ | ---------------------------------------------
+name    | string | 'language' | name of cookie to store in browser
+option   | object | { path: '/', maxAge: 157680000 } | cookie option base on "universal-cookie", default age is 5 years
+reqCookie   | string | undefined | the express cookie header (req.headers.cookie), this is required if you use server-side rendering
 
 ### t(key, params)
 

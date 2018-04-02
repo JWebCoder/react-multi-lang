@@ -1,12 +1,15 @@
 const React = require('react');
 const hoistStatics = require('hoist-non-react-statics');
-
-let language = 'en';
-let count = 0;
+const Cookies = require('universal-cookie');
 
 const subscribes = {};
 
 let translations = {};
+let language = 'en';
+let count = 0;
+let cookies;
+let cookieName = 'language';
+let cookieOption = { path: '/', maxAge: 157680000 };
 
 function subscribe(cb) {
   const newId = count;
@@ -46,8 +49,28 @@ function setDefaultTranslations(userTranslations) {
 }
 
 function setLanguage(lang) {
+  if (Object.keys(translations).indexOf(lang) === -1) {
+    return
+  }
+
   language = lang;
   triggerSubscriptions();
+
+  if (cookies && process.browser) {
+    cookies.set(cookieName, language, cookieOption);
+  }
+}
+
+function setLanguageCookie(name, option, reqCookie) {
+  cookies = new Cookies(reqCookie);
+  cookieName = name || cookieName;
+  cookieOption = Object.assign({}, cookieOption, option);
+
+  const lang = cookies.get(name);
+
+  if (lang) {
+    setLanguage(lang);
+  }
 }
 
 function t(path, args) {
@@ -102,6 +125,7 @@ function translate(Component) {
 module.exports = {
   setDefaultLanguage,
   setLanguage,
+  setLanguageCookie,
   setDefaultTranslations,
   setTranslations,
   translate,
