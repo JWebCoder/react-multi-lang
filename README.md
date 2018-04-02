@@ -8,12 +8,18 @@ React Multi language Higher Order Component with cookie support.
 
 ## Usage
 
-```javascript
+``javascript
 import React from 'react';
 import PropTypes from 'prop-types';
 
 // Translation Higher Order Component
-import { setTranslations, setDefaultLanguage, setLanguageCookie, translate } from 'react-switch-lang';
+import {
+  setTranslations,
+  setDefaultLanguage,
+  setLanguageCookie,
+  setLanguage,
+  translate,
+} from 'react-switch-lang';
 import en from 'en.json';
 import th from 'th.json';
 
@@ -22,7 +28,7 @@ setTranslations({ en, th });
 setDefaultLanguage('en');
 
 // If you want to remember selected language
-setLanguageCookie('language');
+setLanguageCookie();
 
 class SomeComponent extends React.Component {
   handleSetLanguage = (key) => () => {
@@ -36,7 +42,7 @@ class SomeComponent extends React.Component {
         {t('home.Title')}
         {t('Hello', { name: 'World' })}
 
-        <button onClick={this.handleSetLanguage('th')}>
+        <button type="button" onClick={this.handleSetLanguage('th')}>
           Switch language
         </button>
       </div>
