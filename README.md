@@ -8,7 +8,7 @@ React Multi language Higher Order Component with cookie support.
 
 ## Usage
 
-``javascript
+```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
 
