@@ -50,7 +50,7 @@ function setDefaultTranslations(userTranslations) {
 
 function setLanguage(lang) {
   if (Object.keys(translations).indexOf(lang) === -1) {
-    return
+    return;
   }
 
   language = lang;
