@@ -1,13 +1,14 @@
 import * as React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { translate, setLanguage } from 'react-multi-lang'
+import { translate, setLanguage, getLanguage } from 'react-multi-lang'
 
 class App extends React.Component {
   changeLang (lang) {
     setLanguage(lang)
   }
   render () {
+    console.log(getLanguage())
     return (
       <div className="App">
         <header className="App-header">

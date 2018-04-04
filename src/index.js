@@ -73,7 +73,7 @@ export function setLanguage (lang: string) {
 }
 
 export function getLanguage (): string {
-  return(language)
+  return language
 }
 
 export function t (path: string, args?: {[string]: string}): string {
