@@ -93,6 +93,10 @@ Params | Type   | Description
 ------ | ------ | ---------------------------------------------
 key    | string | translation key, in this example 'en' or 'pt'
 
+### getLanguage()
+
+Returns the current selected language
+
 ### t(key, params)
 
 Get text function, will return the translated string
