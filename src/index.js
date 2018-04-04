@@ -72,6 +72,10 @@ export function setLanguage (lang: string) {
   triggerSubscriptions()
 }
 
+export function getLanguage (): string {
+  return(language)
+}
+
 export function t (path: string, args?: {[string]: string}): string {
   const translationKeys: string[] = path.split('.')
   let translation: string = ''
@@ -97,6 +101,8 @@ export function t (path: string, args?: {[string]: string}): string {
         }
       )
     }
+  } else {
+    return path
   }
 
   return translation
