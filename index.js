@@ -73,6 +73,10 @@ function setLanguageCookie(name, option, reqCookie) {
   }
 }
 
+function getLanguage() {
+  return language;
+}
+
 function t(path, args) {
   const translationKeys = path.split('.');
   let translation = '';
@@ -95,7 +99,7 @@ function t(path, args) {
       });
     }
   } else {
-    translation = path;
+    return path;
   }
 
   return translation;
@@ -128,6 +132,7 @@ module.exports = {
   setLanguageCookie,
   setDefaultTranslations,
   setTranslations,
+  getLanguage,
   translate,
   subscribe,
   unsubscribe,
