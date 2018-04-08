@@ -1,6 +1,6 @@
 # react-switch-lang
 
-React Multi language Higher Order Component with cookie support.
+React Multi-language Higher Order Component with cookie support.
 
 ## Installation
 
@@ -8,6 +8,17 @@ React Multi language Higher Order Component with cookie support.
 
 ## Usage
 
+en.json
+```json
+{
+  "home": {
+    "title": "Homepage"
+  },
+  "hello": "Hello {name}!"
+}
+```
+
+SomeComponent.js
 ```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -39,8 +50,8 @@ class SomeComponent extends React.Component {
     const { t } = this.props;
     return (
       <div>
-        {t('home.Title')}
-        {t('Hello', { name: 'World' })}
+        {t('home.title')}
+        {t('hello', { name: 'World' })}
 
         <button type="button" onClick={this.handleSetLanguage('th')}>
           Switch language
