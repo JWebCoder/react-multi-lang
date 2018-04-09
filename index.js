@@ -1,5 +1,6 @@
 const React = require('react');
 const hoistStatics = require('hoist-non-react-statics');
+const objectAssign = require('object-assign');
 const Cookies = require('universal-cookie');
 
 const subscribes = {};
@@ -118,7 +119,7 @@ function translate(Component) {
     render() {
       return React.createElement(
         Component,
-        Object.assign({}, this.props, { t: (key, args) => t(key, args) }),
+        objectAssign({}, this.props, { t: (key, args) => t(key, args) }),
       );
     }
   }
