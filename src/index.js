@@ -122,7 +122,7 @@ export function translate (Component: React$ComponentType<*>): React$ComponentTy
 
     render () {
       return (
-        <Component {...this.props} t={(key: string, args?:{[string]: string}): string => t(key, args)}/>
+        <Component {...this.props} t={t}/>
       )
     }
   }
