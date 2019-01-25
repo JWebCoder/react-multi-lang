@@ -32,6 +32,14 @@ function triggerSubscriptions() {
   });
 }
 
+function getLanguages() {
+  return Object.keys(translations);
+}
+
+function getLanguage() {
+  return language;
+}
+
 function setDefaultLanguage(lang) {
   language = lang;
 }
@@ -42,7 +50,7 @@ function setTranslations(userTranslations) {
 }
 
 function setDefaultTranslations(userTranslations) {
-  if (Object.keys(translations).length !== 0) {
+  if (getLanguages().length !== 0) {
     setTranslations(userTranslations);
     return;
   }
@@ -50,7 +58,7 @@ function setDefaultTranslations(userTranslations) {
 }
 
 function setLanguage(lang) {
-  if (Object.keys(translations).indexOf(lang) === -1) {
+  if (getLanguages().indexOf(lang) === -1) {
     return;
   }
 
@@ -72,10 +80,6 @@ function setLanguageCookie(name, option, reqCookie) {
   if (lang) {
     setLanguage(lang);
   }
-}
-
-function getLanguage() {
-  return language;
 }
 
 function t(path, args) {
@@ -128,12 +132,13 @@ function translate(Component) {
 }
 
 module.exports = {
+  getLanguages,
+  getLanguage,
   setDefaultLanguage,
   setLanguage,
   setLanguageCookie,
   setDefaultTranslations,
   setTranslations,
-  getLanguage,
   translate,
   subscribe,
   unsubscribe,

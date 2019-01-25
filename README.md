@@ -124,6 +124,10 @@ name    | string | 'language' | name of cookie to store in browser
 option   | object | { path: '/', maxAge: 157680000 } | cookie option base on "universal-cookie", default age is 5 years
 reqCookie   | string | undefined | the express cookie header (req.headers.cookie), this is required if you use server-side rendering
 
+### getLanguages()
+
+Returns all translations key. Example: ['en', 'th']
+
 ### getLanguage()
 
 Returns the current selected language
