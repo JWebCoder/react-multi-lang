@@ -44,19 +44,6 @@ function setDefaultLanguage(lang) {
   language = lang;
 }
 
-function setTranslations(userTranslations) {
-  translations = userTranslations;
-  triggerSubscriptions();
-}
-
-function setDefaultTranslations(userTranslations) {
-  if (getLanguages().length !== 0) {
-    setTranslations(userTranslations);
-    return;
-  }
-  translations = userTranslations;
-}
-
 function setLanguage(lang) {
   if (getLanguages().indexOf(lang) === -1) {
     return;
@@ -82,10 +69,32 @@ function setLanguageCookie(name, option, reqCookie) {
   }
 }
 
-function t(path, args) {
+function setTranslations(userTranslations) {
+  translations = userTranslations;
+  triggerSubscriptions();
+}
+
+function setDefaultTranslations(userTranslations) {
+  if (getLanguages().length !== 0) {
+    setTranslations(userTranslations);
+    return;
+  }
+  translations = userTranslations;
+}
+
+function getTranslation(lang) {
+  return translations[lang];
+}
+
+function t(path, params, lang) {
+  let translationObj = getTranslation(lang || language);
+
+  if (!translationObj) {
+    return path;
+  }
+
   const translationKeys = path.split('.');
   let translation = '';
-  let translationObj = translations[language];
 
   translationKeys.forEach((key) => {
     const temp = translationObj[key];
@@ -96,15 +105,15 @@ function t(path, args) {
     }
   });
 
-  if (translation) {
-    if (args) {
-      Object.keys(args).forEach((key) => {
-        const replace = `{${key}}`;
-        translation = translation.replace(replace, args ? args[key] : replace);
-      });
-    }
-  } else {
+  if (!translation) {
     return path;
+  }
+
+  if (params) {
+    Object.keys(params).forEach((key) => {
+      const replace = `{${key}}`;
+      translation = translation.replace(replace, params[key]);
+    });
   }
 
   return translation;
@@ -123,7 +132,7 @@ function translate(Component) {
     render() {
       return React.createElement(
         Component,
-        objectAssign({}, this.props, { t: (key, args) => t(key, args) }),
+        objectAssign({}, this.props, { t: (key, args, lang) => t(key, args, lang) }),
       );
     }
   }

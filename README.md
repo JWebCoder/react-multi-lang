@@ -52,6 +52,7 @@ class SomeComponent extends React.Component {
       <div>
         {t('home.title')}
         {t('hello', { name: 'World' })}
+        {t('hello', { name: 'World' }, 'th')}
 
         <button type="button" onClick={this.handleSetLanguage('th')}>
           Switch language
@@ -79,6 +80,7 @@ Params | Type   | Description
 ------ | ------ | ------------------------------------------------------------------------------------
 path   | string | translation path that identifies the text
 params | object | {'param': 'value', ...} each param will be set on the string in its correct location
+lang   | string | (optional) force select language with translation key, in this example 'en' or 'th'
 
 ## Exported Methods
 
@@ -88,7 +90,7 @@ Sets the translations
 
 Params       | Type   | Description
 ------------ | ------ | ----------------------------
-translations | object | {'key': 'translations', ...}
+translations | object | { "en": { "hello": "Hello" } }
 
 ### setTranslations(translations)
 
@@ -96,7 +98,7 @@ Same as setDefaultTranslations, but this will update all components using transl
 
 Params       | Type   | Description
 ------------ | ------ | ----------------------------
-translations | object | {'key': 'translations', ...}
+translations | object | { "en": { "hello": "Hello" } }
 
 ### setDefaultLanguage(key)
 
@@ -120,17 +122,17 @@ Sets the language cookie name, will setLanguage form this cookie and store langu
 
 Params | Type   | Default | Description
 ------ | ------ | ------ | ---------------------------------------------
-name    | string | 'language' | name of cookie to store in browser
-option   | object | { path: '/', maxAge: 157680000 } | cookie option base on "universal-cookie", default age is 5 years
-reqCookie   | string | undefined | the express cookie header (req.headers.cookie), this is required if you use server-side rendering
+name    | string | 'language' | (optional) name of cookie to store in browser
+option   | object | { path: '/', maxAge: 157680000 } | (optional) cookie option base on "universal-cookie", default age is 5 years
+reqCookie   | string | undefined | (optional) the express cookie header (req.headers.cookie), this is required if you use server-side rendering such as Next.js
 
 ### getLanguages()
 
-Returns all translations key. Example: ['en', 'th']
+Return all translations key. Example: ['en', 'th']
 
 ### getLanguage()
 
-Returns the current selected language
+Return the current selected language
 
 ### t(key, params)
 
