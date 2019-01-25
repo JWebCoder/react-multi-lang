@@ -6,6 +6,7 @@ const Cookies = require('universal-cookie');
 const subscribes = {};
 
 let translations = {};
+let defaultLanguage = 'en';
 let language = 'en';
 let count = 0;
 let cookies;
@@ -36,11 +37,16 @@ function getLanguages() {
   return Object.keys(translations);
 }
 
+function getDefaultLanguage() {
+  return defaultLanguage;
+}
+
 function getLanguage() {
   return language;
 }
 
 function setDefaultLanguage(lang) {
+  defaultLanguage = lang;
   language = lang;
 }
 
@@ -87,10 +93,19 @@ function getTranslation(lang) {
 }
 
 function t(path, params, lang) {
-  let translationObj = getTranslation(lang || language);
+  const selectLang = lang || language;
+
+  function fallback() {
+    if (selectLang !== defaultLanguage) {
+      return t(path, params, defaultLanguage);
+    }
+    return path;
+  }
+
+  let translationObj = getTranslation(selectLang);
 
   if (!translationObj) {
-    return path;
+    return fallback();
   }
 
   const translationKeys = path.split('.');
@@ -106,7 +121,7 @@ function t(path, params, lang) {
   });
 
   if (!translation) {
-    return path;
+    return fallback();
   }
 
   if (params) {
@@ -142,6 +157,7 @@ function translate(Component) {
 
 module.exports = {
   getLanguages,
+  getDefaultLanguage,
   getLanguage,
   setDefaultLanguage,
   setLanguage,

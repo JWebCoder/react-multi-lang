@@ -14,7 +14,18 @@ en.json
   "home": {
     "title": "Homepage"
   },
-  "hello": "Hello {name}!"
+  "hello": "Hello {name}!",
+  "fallback": "Fallback message"
+}
+```
+
+th.json
+```json
+{
+  "home": {
+    "title": "หน้าแรก"
+  },
+  "hello": "สวัสดี {name}!"
 }
 ```
 
@@ -51,8 +62,9 @@ class SomeComponent extends React.Component {
     return (
       <div>
         {t('home.title')}
+        {t('home.title', null, 'th')}
         {t('hello', { name: 'World' })}
-        {t('hello', { name: 'World' }, 'th')}
+        {t('fallback')}
 
         <button type="button" onClick={this.handleSetLanguage('th')}>
           Switch language
@@ -104,15 +116,16 @@ translations | object | { "en": { "hello": "Hello" } }
 
 ### setDefaultLanguage(key)
 
-Sets the default application language
+Set the default application language, when current language does not have translation text method t() will fallback with this default language
+Note: this method will set current language but not update components
 
-Params | Type   | Description
------- | ------ | ---------------------------------------------
-key    | string | translation key, in this example 'en' or 'th'
+Params | Type    | Description
+------ | ------  | ---------------------------------------------
+key    | string  | translation key, in this example 'en' or 'th'
 
 ### setLanguage(key)
 
-Same as setDefaultLanguage, but this will update all components using translations
+Set current language, this will update all components using translations
 
 Params | Type   | Description
 ------ | ------ | ---------------------------------------------
@@ -120,17 +133,21 @@ key    | string | translation key, in this example 'en' or 'th'
 
 ### setLanguageCookie(name, option, reqCookie)
 
-Sets the language cookie name, will setLanguage form this cookie and store language key back to cookie when call setLanguage
+Set the language cookie name, will setLanguage form this cookie and store language key back to cookie when call setLanguage
 
 Params | Type   | Default | Description
 ------ | ------ | ------ | ---------------------------------------------
-name    | string | 'language' | (optional) name of cookie to store in browser
-option   | object | { path: '/', maxAge: 157680000 } | (optional) cookie option base on "universal-cookie", default age is 5 years
-reqCookie   | string | undefined | (optional) the express cookie header (req.headers.cookie), this is required if you use server-side rendering such as Next.js
+name    | string | `'language'` | (optional) name of cookie to store in browser
+option   | object | `{ path: '/', maxAge: 157680000 }` | (optional) cookie option base on "universal-cookie", default age is 5 years
+reqCookie   | string | `undefined` | (optional) the express cookie header (req.headers.cookie), this is required if you use server-side rendering such as Next.js
 
 ### getLanguages()
 
 Return all translations key. Example: ['en', 'th']
+
+### getDefaultLanguage()
+
+Return the default fallback language
 
 ### getLanguage()
 
