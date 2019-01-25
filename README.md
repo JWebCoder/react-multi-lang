@@ -74,12 +74,14 @@ export default translate(SomeComponent);
 
 If using the Higher Order Component `translate(SomeComponent)`
 
-### t(path, params)
+### t(path, params, lang)
+
+Get text function, will return the translated string
 
 Params | Type   | Description
 ------ | ------ | ------------------------------------------------------------------------------------
 path   | string | translation path that identifies the text
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location
+params | object | (optional) {'param': 'value', ...} each param will be set on the string in its correct location
 lang   | string | (optional) force select language with translation key, in this example 'en' or 'th'
 
 ## Exported Methods
@@ -134,11 +136,6 @@ Return all translations key. Example: ['en', 'th']
 
 Return the current selected language
 
-### t(key, params)
+### t(key, params, lang)
 
-Get text function, will return the translated string
-
-Params | Type   | Description
------- | ------ | ------------------------------------------------------------------------------------
-key    | string | translation key that identifies the text
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location
+Same as t() method above
