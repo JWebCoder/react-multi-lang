@@ -22,9 +22,9 @@
     "react": "^16.1.0"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^3.3.0",
+    "hoist-non-react-statics": "^2.5.5",
     "object-assign": "^4.1.1",
-    "universal-cookie": "^3.0.7"
+    "universal-cookie": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
