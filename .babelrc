@@ -1,5 +1,17 @@
 {
-  "presets": ["react"],
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": [
+          ">0.2%",
+          "not dead",
+          "not ie <= 11",
+          "not op_mini all"
+        ]
+      }
+    }]
+  ],
   "plugins": [
     "transform-flow-strip-types",
   ]
