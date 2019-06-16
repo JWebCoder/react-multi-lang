@@ -1,7 +1,6 @@
-import React from 'react'
-
-// statics handler
 import hoistStatics from 'hoist-non-react-statics'
+import React from 'react'
+import { Subtract } from 'utility-types'
 
 let language: string = 'pt'
 let id: number = 1
@@ -20,7 +19,9 @@ export interface ITranslations {
   [key: string]: ITranslation
 }
 
-export type T = (path: string, args?: {[key: string]: string}) => string
+export interface ITranslate {
+  t(path: string, args?: {[key: string]: string}): string
+}
 
 let translations: ITranslations = {}
 
@@ -106,8 +107,10 @@ export function t(path: string, args?: {[key: string]: string}): string {
   return translation
 }
 
-export function translate(Component: React.ComponentType<any>): React.ComponentType<any> {
-  class TranslatedComponet extends React.Component<any, any> {
+export function translate<P extends ITranslate>(
+  Component: React.ComponentType<P>
+): React.ComponentType<Subtract<P, ITranslate>> {
+  class TranslatedComponent extends React.Component<Subtract<P, ITranslate>> {
     public id: number | undefined
 
     public componentDidMount() {
@@ -121,11 +124,11 @@ export function translate(Component: React.ComponentType<any>): React.ComponentT
     }
 
     public render() {
-      return <Component {...this.props} t={t}/>
+      return <Component {...this.props as P} t={t}/>
     }
   }
 
-  return hoistStatics(TranslatedComponet, Component)
+  return hoistStatics(TranslatedComponent, Component)
 }
 
 export default {
