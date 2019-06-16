@@ -1,6 +1,6 @@
 {
   "name": "react-multi-lang",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React Multilanguage Higher-Order Component",
   "main": "lib/index.js",
   "files": [
