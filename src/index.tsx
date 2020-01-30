@@ -2,7 +2,10 @@ import hoistStatics from 'hoist-non-react-statics'
 import React, { useEffect, useState } from 'react'
 import { SetDifference, Subtract } from 'utility-types'
 
-const useForceUpdate = () => () => useState()[1](undefined);
+const useForceUpdate = () => {
+  const setState = useState(true)[1]
+  return () => setState((n) => !n)
+}
 
 let language: string = 'pt'
 let id: number = 1
