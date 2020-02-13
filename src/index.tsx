@@ -1,6 +1,11 @@
 import hoistStatics from 'hoist-non-react-statics'
-import React from 'react'
-import { Subtract } from 'utility-types'
+import React, { useEffect, useState } from 'react'
+import { SetDifference, Subtract } from 'utility-types'
+
+const useForceUpdate = () => {
+  const setState = useState(true)[1]
+  return () => setState((n) => !n)
+}
 
 let language: string = 'pt'
 let id: number = 1
@@ -107,8 +112,18 @@ export function t(path: string, args?: {[key: string]: string}): string {
   return translation
 }
 
-export function translate<P extends ITranslate>(
-  Component: React.ComponentType<P>
+export function useTranslation(basePath?: string) {
+  const forceUpdate = useForceUpdate()
+  useEffect(() => {
+    const subId = subscribe(() => forceUpdate())
+    return () => unsubscribe(subId)
+  }, [forceUpdate])
+  return (path: string, args?: {[key: string]: string}) =>
+    t(basePath ? (basePath + '.' + path) : path, args)
+}
+
+export function withTranslation<P extends ITranslate>(
+  Component: React.ComponentType<Pick<P, SetDifference<keyof P, 't'>>>
 ): React.ComponentType<Subtract<P, ITranslate>> {
   class TranslatedComponent extends React.Component<Subtract<P, ITranslate>> {
     public id: number | undefined
@@ -136,7 +151,8 @@ export default {
   setLanguage,
   setDefaultTranslations,
   setTranslations,
-  translate,
+  withTranslation,
+  useTranslation,
   subscribe,
   unsubscribe,
   t,
