@@ -1,17 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import './index.css'
+import * as serviceWorker from './serviceWorker'
 
-
-import { setDefaultTranslations, setDefaultLanguage } from 'react-multi-lang'
-import pt from './translations/pt.json'
+import { setDefaultLanguage, setDefaultTranslations } from 'react-multi-lang'
 import en from './translations/en.json'
+import pt from './translations/pt.json'
 
 setDefaultTranslations({pt, en})
 setDefaultLanguage('pt')
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

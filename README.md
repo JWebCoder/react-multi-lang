@@ -1,6 +1,6 @@
 # react-multi-lang
 
-React Multilanguage Higher Order Component.
+React Multi-language component.
 
 Works with React and React Native
 
@@ -10,15 +10,42 @@ Works with React and React Native
 
 ## Usage
 
+### Hook
+
 See the example folder for better understanding
 
-```javascript
-// @flow
+```tsx
+import React from 'react'
 
-import * as React from 'react'
+// Translation Hook
+import { setTranslations, setDefaultLanguage, useTranslation } from 'react-multi-lang'
+import pt from 'pt.json'
+import en from 'en.json'
+
+// Do this two lines only when setting up the application
+setTranslations({pt, en})
+setDefaultLanguage('en')
+
+const App: React.FC = () => {
+  const t = useTranslation()
+  return (
+    <div>
+      {t('home.Title')}
+      {t('Hello', {name: 'João'})}
+    </div>
+  )
+}
+
+export default App
+```
+
+### Higher order component
+
+```tsx
+import React from 'react'
 
 // Translation Higher Order Component
-import { setTranslations, setDefaultLanguage, translate } from 'react-multi-lang'
+import { setTranslations, setDefaultLanguage, withTranslation } from 'react-multi-lang'
 import pt from 'pt.json'
 import en from 'en.json'
 import type { T } from 'react-multi-lang'
@@ -31,11 +58,9 @@ type Props = {
   t: T
 }
 
-type State = {}
-
-class SomeComponent extends React.Component<Props, State> {
+class SomeComponent extends React.Component<Props> {
   render () {
-    const { translate } = this.props
+    const { t } = this.props
     return (
       <div>
         {t('home.Title')}
@@ -45,14 +70,10 @@ class SomeComponent extends React.Component<Props, State> {
   }
 }
 
-export default translate(SomeComponent)
+export default withTranslation(SomeComponent)
 ```
 
-## Injected Method
-
-If using the Higher Order Component `translate(SomeComponent)`
-
-### t(path, params)
+## Translation Method t(path, params)
 
 Params | Type   | Description
 ------ | ------ | ------------------------------------------------------------------------------------
