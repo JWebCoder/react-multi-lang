@@ -83,33 +83,33 @@ export function getLanguage(): string {
 export function t(path: string, args?: {[key: string]: string}): string {
   const translationKeys: string[] = path.split('.')
   let translation: string = ''
-  let translationObj: ITranslation = translations[language]
+  if (translations[language]) {
+    let translationObj: ITranslation = translations[language]
 
-  translationKeys.forEach(
-    (key: string) => {
-      const temp: string | ITranslation = translationObj[key]
-      if (typeof translationObj[key] === 'object') {
-        translationObj = translationObj[key] as ITranslation
-      }
-      if (typeof temp === 'string') {
-        translation = temp
-      }
-    }
-  )
-
-  if (translation) {
-    if (args) {
-      Object.keys(args).forEach(
-        (key) => {
-          translation = translation.replace(`{${key}}`, args ? args[key] : '')
+    translationKeys.forEach(
+      (key: string) => {
+        const temp: string | ITranslation = translationObj[key]
+        if (typeof translationObj[key] === 'object') {
+          translationObj = translationObj[key] as ITranslation
         }
-      )
-    }
-  } else {
-    return path
-  }
+        if (typeof temp === 'string') {
+          translation = temp
+        }
+      }
+    )
 
-  return translation
+    if (translation) {
+      if (args) {
+        Object.keys(args).forEach(
+          (key) => {
+            translation = translation.replace(`{${key}}`, args ? args[key] : '')
+          }
+        )
+      }
+      return translation
+    }
+  }
+  return path
 }
 
 export function useTranslation(basePath?: string) {
