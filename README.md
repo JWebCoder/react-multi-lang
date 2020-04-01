@@ -81,7 +81,7 @@ React hook that returns the t function
 
 Params | Type | Description | Required
 ---- | ---- | ---- | ----
-basePath | string | translation basepath used to identify all the next requested translations | no
+basePath | string | translation base path used to identify all the next requested translations | no
 
 ### withTranslation(component, basePath)
 
@@ -90,7 +90,7 @@ HOC that injects the translation function into the component
 Params | Type | Description | Required
 ---- | ---- | ---- | ----
 component | React Component | React component that requires the translation function | yes
-basePath | string | translation basepath used to identify all the next requested translations | no
+basePath | string | translation base path used to identify all the next requested translations | no
 
 ## Translation Method
 
@@ -101,7 +101,7 @@ Returns the translation for the requested path
 Params | Type | Description | Required
 ---- | ---- | ---- | ----
 path | string | translation path that identifies the text | yes
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location | no
+params | object | {'param': 'value', ...} each parameter will be set on the string in its correct location | no
 
 ## Exported Methods
 
@@ -150,4 +150,4 @@ Returns the translation for the requested path
 Params | Type | Description | Required
 ---- | ---- | ---- | ----
 path | string | translation path that identifies the text | yes
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location | no
+params | object | {'param': 'value', ...} each parameter will be set on the string in its correct location | no
