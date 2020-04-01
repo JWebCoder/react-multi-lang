@@ -20,6 +20,8 @@ interface ITranslation {
   [key: string]: string | ITranslation
 }
 
+export interface ITranslationParams {[key: string]: string}
+
 export interface ITranslations {
   [key: string]: ITranslation
 }
@@ -80,7 +82,7 @@ export function getLanguage(): string {
   return language
 }
 
-export function t(path: string, args?: {[key: string]: string}): string {
+export function t(path: string, args?: ITranslationParams): string {
   const translationKeys: string[] = path.split('.')
   let translation: string = ''
   if (translations[language]) {
@@ -118,12 +120,13 @@ export function useTranslation(basePath?: string) {
     const subId = subscribe(() => forceUpdate())
     return () => unsubscribe(subId)
   }, [forceUpdate])
-  return (path: string, args?: {[key: string]: string}) =>
+  return (path: string, args?: ITranslationParams) =>
     t(basePath ? (basePath + '.' + path) : path, args)
 }
 
 export function withTranslation<P extends ITranslate>(
-  Component: React.ComponentType<Pick<P, SetDifference<keyof P, 't'>>>
+  Component: React.ComponentType<Pick<P, SetDifference<keyof P, 't'>>>,
+  basePath?: string
 ): React.ComponentType<Subtract<P, ITranslate>> {
   class TranslatedComponent extends React.Component<Subtract<P, ITranslate>> {
     public id: number | undefined
@@ -139,7 +142,13 @@ export function withTranslation<P extends ITranslate>(
     }
 
     public render() {
-      return <Component {...this.props as P} t={t}/>
+      return <Component
+        {...this.props as P}
+        t={
+          (path: string, args?: ITranslationParams) =>
+            t(basePath ? (basePath + '.' + path) : path, args)
+        }
+      />
     }
   }
 

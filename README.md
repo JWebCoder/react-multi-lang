@@ -73,12 +73,35 @@ class SomeComponent extends React.Component<Props> {
 export default withTranslation(SomeComponent)
 ```
 
-## Translation Method t(path, params)
+## Auto update functions
 
-Params | Type   | Description
------- | ------ | ------------------------------------------------------------------------------------
-path   | string | translation path that identifies the text
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location
+### useTranslation(basePath)
+
+React hook that returns the t function
+
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+basePath | string | translation base path used to identify all the next requested translations | no
+
+### withTranslation(component, basePath)
+
+HOC that injects the translation function into the component
+
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+component | React Component | React component that requires the translation function | yes
+basePath | string | translation base path used to identify all the next requested translations | no
+
+## Translation Method
+
+t(path, params)
+
+Returns the translation for the requested path
+
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+path | string | translation path that identifies the text | yes
+params | object | {'param': 'value', ...} each parameter will be set on the string in its correct location | no
 
 ## Exported Methods
 
@@ -86,33 +109,33 @@ params | object | {'param': 'value', ...} each param will be set on the string i
 
 Sets the translations
 
-Params       | Type   | Description
------------- | ------ | ----------------------------
-translations | object | {'key': 'translations', ...}
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+translations | object | {'key': 'translations', ...} | yes
 
 ### setTranslations(translations)
 
 Same as setDefaultTranslations, but this will update all components using translations
 
-Params       | Type   | Description
------------- | ------ | ----------------------------
-translations | object | {'key': 'translations', ...}
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+translations | object | {'key': 'translations', ...} | yes
 
 ### setDefaultLanguage(key)
 
 Sets the default application language
 
-Params | Type   | Description
------- | ------ | ---------------------------------------------
-key    | string | translation key, in this example 'en' or 'pt'
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+key    | string | translation key, in this example 'en' or 'pt' | yes
 
 ### setLanguage(key)
 
 Same as setDefaultLanguage, but this will update all components using translations
 
-Params | Type   | Description
------- | ------ | ---------------------------------------------
-key    | string | translation key, in this example 'en' or 'pt'
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+key    | string | translation key, in this example 'en' or 'pt' | yes
 
 ### getLanguage()
 
@@ -120,9 +143,11 @@ Returns the current selected language
 
 ### t(key, params)
 
-Get text function, will return the translated string
+t(path, params)
 
-Params | Type   | Description
------- | ------ | ------------------------------------------------------------------------------------
-key    | string | translation key that identifies the text
-params | object | {'param': 'value', ...} each param will be set on the string in its correct location
+Returns the translation for the requested path
+
+Params | Type | Description | Required
+---- | ---- | ---- | ----
+path | string | translation path that identifies the text | yes
+params | object | {'param': 'value', ...} each parameter will be set on the string in its correct location | no
