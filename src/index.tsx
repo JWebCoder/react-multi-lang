@@ -48,7 +48,9 @@ function triggerSubscriptions() {
     (componentId: string) => {
       new Promise(
         (resolve, reject) => {
-          subscribes[componentId]()
+          if (subscribes[componentId] && typeof subscribes[componentId] === 'function') {
+            subscribes[componentId]()
+          }
           resolve()
         }
       ).then()
