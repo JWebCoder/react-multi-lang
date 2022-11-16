@@ -1,16 +1,12 @@
 import React from 'react';
 import { getLanguage, setLanguage, useTranslation } from 'react-multi-lang'
 import './App.css';
-import logo from './logo.svg';
 
-const App: React.FC = () => {
-
+function App() {
   const t = useTranslation()
-
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
+    <div className="App">
+      <header className="App-header">
         <h1 className='App-title'>
           {t('home.Title', {param: 'react'})}
         </h1>
@@ -23,7 +19,7 @@ const App: React.FC = () => {
       <button onClick={() => setLanguage('pt')}>PT</button>
       <button onClick={() => setLanguage('en')}>EN</button>
     </div>
-  )
+  );
 }
 
 export default App;
